@@ -1,0 +1,448 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;/* changing how padding is calculated to make it within a width rather than adding onto total width of something */
+}
+
+/* Custom Properties, update these according to design */
+
+:root {
+	--ff-primary: 'Source Sans Pro', sans-serif;
+	--ff-secondary:'Source Code Pro', monospace;
+
+	--fw-reg: 300;/* font weight*/
+	--fw-bold:900;
+
+	--clr-light:#fff;
+	--clr-dark:#303030;
+	--clr-accent: #16e0bd;
+
+	--fs-h1: 3rem;
+	--fs-h2: 2.25rem;
+	--fs-h3: 1.15rem;
+	--fs-body: 1rem;
+
+	/* layering 2 shadows makes it look more realistic, a bit of darker shadow and a layer of lighter shadow */
+	--bs: 0.25em 0.25em 0.75em rgba(0, 0, 0, 0.25),
+		0.125em 0.125em 0.25em rgba(0, 0, 0, 0.15);/* box-shadow to make things looking nicer - right, down, and blur */
+
+}
+
+/* if the screen size if atleast 800 or more, then we will change how it looks*/
+@media (min-width: 800px) {
+	:root {
+		--fs-h1:4.5rem;
+		--fs-h2: 3.75rem;
+		--fs-h3: 1.3rem;
+		--fs-body: 1.125rem;
+	}
+
+}
+
+/* General Styles */
+html {
+	scroll-behavior: smooth;
+}
+body {
+	background: var(--clr-light);
+	color: var(--clr-dark);
+	margin: 0;
+	font-family: var(--ff-primary);
+	font-size: var(--fs-body);
+	line-height: 1.6;
+}
+
+section {
+	padding: 5em 2em; /* 5 top and bottom, 2 left and right - keeps things from touching the sides of the screen*/
+}
+img {
+	display: block;
+	max-width: 100%; /* so they dont become too big, and overgrow the size of their parents. */
+}
+
+strong {
+	font-weight: var(--fw-bold);
+}
+
+/* everything in a focus state is going to get an outline on it */
+:focus {
+	outline: 3px solid var(--clr-accent);
+	outline-offset: 3px;
+
+}
+
+/* Buttons */
+
+.btn {
+	display: inline-block;
+	padding: 0.5em 2.5em;/* sort of gives it its size */
+	background: var(--clr-accent);
+	color: var(--clr-dark);
+	text-decoration: none;
+	cursor: pointer;
+	font-size: 0.8rem;
+	text-transform: uppercase;
+	letter-spacing: 2px; /* for spreading the uppercase text */
+	font-weight: var(--fw-bold);
+	transition: transform 200ms ease-in-out;
+
+}
+
+.btn:hover{
+	transform: scale(1.1); /* becomes a little bigger when hovering over the button */
+}
+
+
+/* Typography */
+
+h1,
+h2,
+h3 {
+	line-height: 1; /* bigger font sizes - dont want them to break into multiple lines */
+	margin:0;/*in general we dont need a margin for headings, might add a margin-top or margin-bottom later */
+}
+
+h1 { font-size: var(--fs-h1)}
+h2 { font-size: var(--fs-h2)}
+h3 { font-size: var(--fs-h3)}
+
+.section__title {
+	margin-bottom: .25em;/* margins and padding with em -relative to font size, since its a section title (big)- margin can be small*/
+}
+
+.section__title--intro {
+	font-weight: var(--fw-reg);
+}
+
+.section__title--intro strong {
+	display: block; /* we want the name to always be together on its own line */
+}
+
+.section__subtitle {
+	margin:0;/* makes our lives easier - h3 margin was set to 0 at the top */
+	font-size: var(--fs-h3);
+}
+
+.section__subtitle--intro,
+.section__subtitle--about {
+	background: var(--clr-accent);
+	padding: .25em 1em;
+	font-family: var(--ff-secondary);
+	margin-bottom: 1em;
+}
+
+.section__subtitle--work {
+	color: var(--clr-accent);
+	font-weight: var(--fw-bold);
+	margin-bottom: 2em;
+}
+/* Navigation */
+header {
+	display: flex;/* because we want logo on the left and button to shoot over to the right */
+	justify-content: space-between;/*spreads them out properly*/
+	padding: 1em;/*on all sides so nothing is touching*/
+}
+.logo {
+	max-width: 100px;
+}
+
+.nav {
+	position: fixed;/*so navigation bar is always on the top, as we scroll throught the page */
+	background: var(--clr-dark);
+	color: var(--clr-light);
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right:0;
+	z-index:100;
+
+	transform: translateX(100%);
+	transition: transform 250ms cubic-bezier(0.5, 0, 0.5, 1);
+}
+
+.nav__list {
+	list-style: none;
+	display: flex;
+	height: 100%;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+	margin:0;
+	padding: 0;
+
+}
+
+.nav__link {
+	color: inherit;
+	font-weight: var(--fw-bold);
+	font-size: var(--fs-h3);
+	text-decoration: none;
+
+}
+
+.nav__link:hover {
+	color: var(--clr-accent);
+
+}
+
+.nav-toggle {
+	padding: .5em;
+	background: transparent;
+	border:0;
+	cursor:pointer;/* gives a hand icon */
+	/* by having a position absolute and a higher z-index, we know that the hamburger sign will always be there */)
+	position:absolute;/* needs to have a right positioning with it */
+	right:1em;
+	top:1em;
+	z-index: 1000;
+}
+
+.nav-open .nav {
+	/* if nav is open then nav itself is going to be the set to the following properties */
+	transform:translateX(0);
+}
+
+.nav-open .nav-toggle {
+	position:fixed;
+
+}
+
+.nav-open .hamburger::before {
+	transform: rotate(90deg) translateX(-6px);
+}
+
+.nav-open .hamburger {
+	transform: rotate(0.625turn);
+}
+
+.nav-open .hamburger::after {
+	opacity: 0;
+}
+
+.hamburger {
+	display: block;/*because by default it was span which is inline, and we want to make sure we dont run into any issues with it*/
+	position: relative;/* because we will be using peudo elements with absolute positioning, and this makes it easier to manage*/
+}
+
+.hamburger,
+.hamburger::before,
+.hamburger::after{
+    background: var(--clr-accent);
+	width:2em;
+	height: 3px;
+	border-radius: 1em;
+	transition: transform 250ms ease-in-out;
+
+}
+
+.hamburger::before {top:6px;}
+.hamburger::after {bottom: 6px;}
+
+.hamburger::before,
+.hamburger::after {
+	content: '';
+	position: absolute;/* either required to give psedoelement a display block or position property */
+	/* the following left, and right so it matches the width of the original */
+	left: 0;
+	right: 0;
+}
+/* Intro section */
+
+.intro {
+	position: relative;
+}
+
+/* we are putting this outside the media since we want this to be valid for our image of all sizes */
+.intro__img {
+	box-shadow: var(--bs);
+	/* border-radius: 0.23em; */
+	border-radius: 45%;
+
+}
+/* if the screen size if atleast 600 or more, then we will change how it looks*/
+/* although we made the fonts to change at 800, its good to have 3 different settings for images
+and other media queries - 300 and up, 600 and up, 900 and up*/
+
+/* the following is more generic */
+@media (min-width: 600px) {
+
+	/* makes photo and title info into 2 parallel grids*/
+	.intro {
+		display: grid;
+		/* the following 2 are being used to center the context*/
+		width: min-content; /* should shrink it down - the whole div or section will match the content thats inside of it*/
+		margin: 0 auto;/* keeps it nice and centered bigger screen sizes */
+		grid-column-gap: 1em;/* distance between the 2 grids*/
+		grid-template-areas:
+			"img title"
+			"img subtitle";
+		grid-template-columns: min-content max-content;/* min-content will try to shrink it as much as possible - for image, text will be set to max-content to make it as big as possible */
+
+		}
+
+	.intro__img {
+		grid-area: img;
+		min-width: 250px;
+		/* the next two are done to put the photo on top of the green bar with subtitle */
+		position: relative;
+		z-index: 2;
+	}
+
+	.section__subtitle--intro {
+		align-self:start; /* doesnt stretch down */
+		grid-column: -1 /1; /* it will make it stretch the whole length */
+		grid-row:2; /* specify this to be the second row to avoid overlap with photo */
+		text-align: right;/* so text doesnt get hidden under the photo */
+		position: relative;/* puts this on top of the photo */
+		left: -1.5em; /* extend it more than the photo, to the left of the photo */
+		width: calc(100% + 1.5em);/*lines the subtitle with the title */
+	}
+}
+
+/* My Services section */
+
+.what-i-do {
+	background-color: var(--clr-dark);
+	background-image: url(../img/work-background.jfif);
+	background-size: cover;/* make sure it never repeats itself */
+	background-blend-mode: overlay;
+	color: var(--clr-light);
+	text-align: center;
+}
+
+.section__title--services{
+
+	color: var(--clr-accent);
+	position: relative;/* for the pseudo elements - the tiny line underneath the title */
+
+}
+
+.section__title--services::after {
+	content: '';/*need to give psedo elements a content or they will not appear*/
+	display: block;/* and either give them a display block or position */
+	width: 2.5em;
+	height: 1px;
+	margin: 0.5em auto 1em;/* top, left and right auto, 1 em bottom */
+	background:var(--clr-light);/* if we use currentColor, it will be the same color as title--services element*/
+	opacity: 0.25;
+
+}
+
+.interests {
+	max-width: 400px;
+	margin: 0 auto; /* to keep it centered */
+	margin-bottom: 4em;
+}
+
+@media (min-width: 800px) {
+	.interests {
+		display: flex; /* makes 3 columns */
+		max-width: 1000px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.interest {
+		max-width: 300px;
+		margin: 0 auto;
+	}
+
+	/* to add margin between 2 columes, or 2 services, add a condition as follows */
+	.interest + .interest {
+		margin-left: 1em;
+	}
+}
+
+/* My projects */
+
+.my-projects {
+	background-color: var(--clr-dark);
+	color: var(--clr-light);
+	text-align: center;
+}
+
+.portfolio {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /*repeat(2, 1fr);*/
+}
+
+.portfolio__item {
+	background: var(--clr-accent);
+	overflow: hidden;
+
+}
+
+.portfolio__img {
+	transition: transform 750ms cubic-bezier(0.5, 0, 0.5, 1),/* like ease in out but more subtle*/
+	opacity: 250ms linear;
+}
+
+.portfolio__img:focus {
+	position: relative;
+	z-index: 2;
+}
+
+.portfolio__img:hover,
+.portfolio__item:focus .portfolio__img {
+	transform: scale(1.2);
+	opacity: 0.95;
+
+}
+
+/* footer */
+
+.footer{
+	background: #111; /* almost black */
+	color: var(--clr-accent);
+	text-align: center;
+	padding: 2.5em 0;
+    font-size: var(--fs-h3);
+}
+
+.footer a {
+	color: inherit;/* any link will be the same color as set in footer */
+	text-decoration: none;
+	}
+
+.footer__link{
+	font-weight: var(--fw-bold);
+}
+
+.footer__link:hover,
+.social-list__link:hover {
+	opacity: 0.7;
+}
+
+.footer__link:hover {
+	text-decoration: underline;
+}
+
+.social-list {
+	list-style: none;
+	display: flex;
+	justify-content: center;
+	margin: 2em 0 0;
+	padding: 0;
+}
+
+.social-list__item {
+	margin: 0 0.5em;
+}
+
+.social-list__link{
+	padding: 0.5em;
+}
+
+/* Individual portfolio item styles */
+
+.portfolio-item-individual {
+	padding: 0 2em 2em;/* top 0 2em left, right, 2em bottom */
+	max-width: 1000px;
+	margin:0 auto;
+}
+
+.portfolio-item-individual p {
+	max-width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+}
