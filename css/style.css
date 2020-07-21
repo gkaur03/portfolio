@@ -256,7 +256,7 @@ header {
 .intro__img {
 	box-shadow: var(--bs);
 	/* border-radius: 0.23em; */
-	border-radius: 45%;
+	border-radius: 50%;
 
 }
 /* if the screen size if atleast 600 or more, then we will change how it looks*/
