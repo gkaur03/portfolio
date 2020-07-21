@@ -136,6 +136,14 @@ h3 { font-size: var(--fs-h3)}
 	font-weight: var(--fw-bold);
 	margin-bottom: 2em;
 }
+
+.work__subtitle--work {
+	color: #FFFFFF;
+	/* font-weight: var(--fw-bold); */
+	font-size: 1rem;
+	margin-bottom: 2em;
+	margin-top: 2.5em;
+}
 /* Navigation */
 header {
 	display: flex;/* because we want logo on the left and button to shoot over to the right */
@@ -349,7 +357,7 @@ and other media queries - 300 and up, 600 and up, 900 and up*/
 
 	/* to add margin between 2 columes, or 2 services, add a condition as follows */
 	.interest + .interest {
-		margin-left: 1em;
+		margin-left: 2em;
 	}
 }
 
@@ -363,12 +371,13 @@ and other media queries - 300 and up, 600 and up, 900 and up*/
 
 .portfolio {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /*repeat(2, 1fr);*/
+	grid-template-columns: repeat(auto-fit, minmax(600px, 1fr)); /*repeat(2, 1fr);*/
 }
 
 .portfolio__item {
-	background: var(--clr-accent);
+	/* background: var(--clr-accent); */
 	overflow: hidden;
+	padding: 3% 5%;
 
 }
 
