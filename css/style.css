@@ -371,7 +371,8 @@ and other media queries - 300 and up, 600 and up, 900 and up*/
 
 .portfolio {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(600px, 1fr)); /*repeat(2, 1fr);*/
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /*repeat(2, 1fr);
+	/* grid-template-columns: repeat(2, 1fr); */
 }
 
 .portfolio__item {
